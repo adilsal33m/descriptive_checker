@@ -30,8 +30,21 @@ public static function check($test,$answers){
 static function oneShot($s1,$s2){
   //Rapid KeyWord Extraction
   $rake = new Rake('../vendor/rake/stoplist_smart.txt');
-  $keywords_actual = $rake->extract($s1);
-  $keywords_test = $rake->extract($s2);
+  $keywords = $rake->extract($s1);
+  $keywords_actual = [];
+  foreach($keywords as $k => $v){
+  	foreach(explode(" ",$k) as $k1){
+  		$keywords_actual[$k1] = $v;
+  	}
+  }
+  $keywords = $rake->extract($s2);
+  $keywords_test = [];
+  foreach($keywords as $k => $v){
+  	foreach(explode(" ",$k) as $k1){
+  		$keywords_test[$k1] = $v;
+  	}
+  }
+
  //Difference
  $result = array_diff(array_keys($keywords_test),array_intersect(array_keys($keywords_actual),array_keys($keywords_test)));
 
@@ -77,6 +90,11 @@ static function oneShot($s1,$s2){
  			array_push($match_ant,$findme."$".$string);
  		}
  	}
+ 	// echo "\nMatched Synonyms\n";
+ 	// print_r($match_sim);
+ 	//
+ 	// echo "\nMatched Antonyms\n";
+ 	// print_r($match_ant);
 
  	foreach($match_sim as $token){
  		$sentence = $s2;

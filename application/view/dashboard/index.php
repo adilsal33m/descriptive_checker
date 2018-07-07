@@ -43,15 +43,21 @@ use Kreait\Firebase\ServiceAccount;
       // ->update($updates);
       ?>
       <p><b>Username: </b><?php echo $snapshot["name"];?></p><br>
-      <b>Your Courses</b>
+      <h2>Your Courses</h2>
       <?php
         if (!empty(array_keys($snapshot["courses"]))){
-          foreach(array_keys($snapshot["courses"]) as $k){
+          foreach($snapshot["courses"] as $k=>$v){
             if ($type == 7 ){
-              echo "<p>".$courses[$k]."</p>";
+              echo "<h3>".$courses[$k]."</h3>";
             }else{
               $ks = explode("_", $k);
-              echo "<p>".$courses['"'.$ks[count($ks)-1].'"']."</p>";
+              echo "<h3>".$courses['"'.$ks[count($ks)-1].'"']."</h3>";
+              //Get tests
+              if(!empty($v["tests"])){
+              foreach ($v["tests"] as $k1 => $v1) {
+                echo "<p><b>Test ID: </b>".$k1." <b>Score: </b>".array_sum($v1["marks"])."</p>";
+              }
+            }
             }
 
           }
