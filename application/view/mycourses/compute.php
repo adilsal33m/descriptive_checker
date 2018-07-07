@@ -49,6 +49,10 @@ $database->getReference()->update($updates);
 <div class="container">
   <div class="box">
     <h1>Result for Test ID: <?php echo $test_id; ?></h1>
-    <?php print_r($marks);?>
+    <?php
+    foreach ($marks as $key => $mark) {
+      echo "<br><p><b>Your Answer:</b><br>".$answers[$key]."</p>";
+      echo "<b>Score: ".$mark."</b><br>";
+    }?>
   </div>
 </div>

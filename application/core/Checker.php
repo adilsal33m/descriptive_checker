@@ -33,7 +33,7 @@ static function oneShot($s1,$s2){
   $keywords_actual = $rake->extract($s1);
   $keywords_test = $rake->extract($s2);
  //Difference
- $result = array_diff_assoc($keywords_test,array_intersect_assoc($keywords_actual,$keywords_test));
+ $result = array_diff(array_keys($keywords_test),array_intersect(array_keys($keywords_actual),array_keys($keywords_test)));
 
  //Porter Stemming
  $stemmer = new PorterStemmer();
@@ -45,7 +45,7 @@ static function oneShot($s1,$s2){
 
  $sentences_sim = [];
  $sentences_ant = [];
- foreach (array_keys($result) as $string) {
+ foreach ($result as $string) {
  $stem_sim = [];
  $stem_ant = [];
  $sim = [];

@@ -113,8 +113,20 @@ echo "\n<b>Thesaurus Results</b>\n";
    <h3>Keyword Extraction using RAKE</h3>
 <?php
 $rake = new Rake('../vendor/rake/stoplist_smart.txt');
-$keywords_actual = $rake->extract($s1);
-$keywords_test = $rake->extract($s2);
+$keywords = $rake->extract($s1);
+$keywords_actual = [];
+foreach($keywords as $k => $v){
+	foreach(explode(" ",$k) as $k1){
+		$keywords_actual[$k1] = $v;
+	}
+}
+$keywords = $rake->extract($s2);
+$keywords_test = [];
+foreach($keywords as $k => $v){
+	foreach(explode(" ",$k) as $k1){
+		$keywords_test[$k1] = $v;
+	}
+}
 print_r($keywords_actual);
 echo "\n";
 print_r($keywords_test);
@@ -129,7 +141,7 @@ print_r($d->getDocumentData());
 
    <h3>Difference of keywords</h3>
 <?php
-$result = array_diff_assoc($keywords_test,array_intersect_assoc($keywords_actual,$keywords_test));
+$result = array_diff(array_keys($keywords_test),array_intersect(array_keys($keywords_actual),array_keys($keywords_test)));
 print_r($result);
    ?>
 
@@ -141,7 +153,7 @@ $match_ant = [];
 
 $sentences_sim = [];
 $sentences_ant = [];
-foreach (array_keys($result) as $string) {
+foreach ($result as $string) {
 $stem_sim = [];
 $stem_ant = [];
 $sim = [];
@@ -173,11 +185,11 @@ $ant = [];
 			array_push($match_ant,$findme."$".$string);
 		}
 	}
-	echo "\nMatched Synonyms\n";
-	print_r($match_sim);
-
-	echo "\nMatched Antonyms\n";
-	print_r($match_ant);
+	// echo "\nMatched Synonyms\n";
+	// print_r($match_sim);
+	//
+	// echo "\nMatched Antonyms\n";
+	// print_r($match_ant);
 
 	foreach($match_sim as $token){
 		$sentence = $s2;
