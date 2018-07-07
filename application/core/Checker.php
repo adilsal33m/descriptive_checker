@@ -121,12 +121,21 @@ static function oneShot($s1,$s2){
 $cos = new CosineSimilarity();
 $cos_sim_array = [];
 $tok = new WhitespaceAndPunctuationTokenizer();
+$setA = $rake->extract($s1);
 foreach($sentences_sim as $k => $sent){
  $setB = $rake->extract($sent);
- $cos_sim_array[$k] = $cos->similarity($setB,$keywords_actual);
+ $cos_sim_array[$k] = $cos->similarity($setB,$setA);
 }
 arsort($cos_sim_array);
-$score = array_values($cos_sim_array)[0] * 8;
+//Rake Score
+$setB = $rake->extract($sentences_sim[key($cos_sim_array)]);
+$intersect = array_intersect(array_keys($setB),array_keys($setA));
+$temp = [];
+foreach($intersect as $k){
+  $temp[$k]= $setB[$k];
+}
+$score = array_sum($temp)*4/array_sum($setA);
+$score = $score + array_values($cos_sim_array)[0] * 4;
 
 //Grammar Check
 $score = $score + (self::checkGrammar(array_values($cos_sim_array)[0])*2)/100 ;
