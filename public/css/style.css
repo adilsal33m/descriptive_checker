@@ -63,7 +63,9 @@ body {
     padding: 5px 10px;
 }
 .container input[type="submit"] {
-    background-color: #ccc;
+    background-color: transparent;
+    color: #094093;
+    border: 2px solid #094093;
     cursor: pointer;
 }
 .container input[type="submit"]:hover {
@@ -71,13 +73,14 @@ body {
     color: #fff;
 }
 .container button {
-    background-color: #094093;
-    border: 0;
+    background-color: transparent;
+    color: #094093;
+    border: 2px solid #094093;
     padding: 5px 10px;
     cursor: pointer;
 }
 .container button:hover {
-    background-color: #222;
+    background-color: #094093;
     color: #fff;
 }
 
