@@ -393,7 +393,7 @@ class RegistrationModel
            // make sure to replace the URL with the URL of your project.
            ->withDatabaseUri('https://descriptive-checker.firebaseio.com/')
            ->create();
-           
+
       $db = DatabaseFactory::getFactory()->getConnection();
       $sql = "SELECT user_creation_timestamp,user_name,user_account_type FROM users WHERE user_id = :user_id";
       $query = $db->prepare($sql);

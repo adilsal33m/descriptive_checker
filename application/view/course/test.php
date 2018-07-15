@@ -89,7 +89,7 @@ $next_test_key = "test_".time();
     </div>
     <div class="box">
           <b>Test ID: </b><?php echo $next_test_key; ?><br><br>
-          <input type="text" id="member" name="member" value="">Number of questions: (max. 10)<br />
+          <input type="text" id="member" name="member" value="">Number of questions: <br />
 <a href="#" id="filldetails" onclick="addFields()">Generate template</a>
 <br>
 <form method="post" action="<?php echo Config::get('URL'); ?>course/test">
