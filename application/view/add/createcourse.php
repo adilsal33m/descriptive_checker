@@ -18,7 +18,7 @@ $database = $firebase->getDatabase();
 
 //Post a new test
 if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['course_name'])){
-  $course_name = '"'.$_POST['course_name'];
+  $course_name = $_POST['course_name'];
   $course_key = '"'.time().'"';
   $snapshot = $database->getReference("courses")->orderByValue()
   ->equalTo($course_name)->getSnapshot()->getValue();
