@@ -68,6 +68,7 @@ $next_test_key = "test_".time();
       <tr>
       <th><?php echo "Posted Test"; ?></th>
       <th><?php echo "Action"; ?></th>
+      <th><?php echo "View"; ?></th>
       </tr>
       </thead>
       <tbody>
@@ -77,6 +78,11 @@ $next_test_key = "test_".time();
       <td><form action="<?php echo Config::get('URL'); ?>course/test" method="post">
         <input type="hidden" name = "course_test" value="<?php echo $course_key;?>"></input>
         <button type='submit' name='remove_test' value="<?php echo $test; ?>">Remove</>
+      </form></td>
+      <td><form action="<?php echo Config::get('URL'); ?>course/view" method="post">
+        <input type="hidden" name = "course" value="<?php echo $course_key;?>"></input>
+          <input type="hidden" name = "teacher" value="<?php echo $key;?>"></input>
+        <button type='submit' name='view_test' value="<?php echo $test; ?>">View</>
       </form></td>
       </tr>
       <?php endforeach; ?>

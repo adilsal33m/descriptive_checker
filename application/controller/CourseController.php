@@ -24,4 +24,8 @@ class CourseController extends Controller
     public function test(){
       $this->View->render('course/test');
     }
+
+    public function view(){
+      $this->View->render('course/view');
+    }
 }
