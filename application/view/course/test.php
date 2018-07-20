@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['next_test_key'])){
     for ($i = 0 ; $i < count($_POST['question']); $i++) {
       $updates[$node."/".$next_test_key."/paper"."/".$i."/question"] = $_POST['question'][$i];
       $updates[$node."/".$next_test_key."/paper"."/".$i."/answer"] = $_POST['answer'][$i];
+      $updates[$node."/".$next_test_key."/paper"."/".$i."/marks"] = $_POST['marks'][$i];
     }
     $database->getReference() // this is the root reference
     ->update($updates);
@@ -94,8 +95,8 @@ $next_test_key = "test_".time();
   endif;?>
     </div>
     <div class="box">
-          <b>Test ID: </b><?php echo $next_test_key; ?><br><br>
-          <input type="text" id="member" name="member" value="">Number of questions: <br />
+          <b>Test ID: </b><?php echo $next_test_key; ?><br><br>Number of questions:
+          <input type="number" min="1" id="member" name="member" value="1"><br />
 <a href="#" id="filldetails" onclick="addFields()">Generate template</a>
 <br>
 <form method="post" action="<?php echo Config::get('URL'); ?>course/test">
@@ -127,6 +128,15 @@ function addFields(){
                 input.type = "text";
                 container.appendChild(input);
                 input.name = "answer[]"
+                input.required = true;
+                container.appendChild(document.createTextNode("Marks"));
+                var input = document.createElement("input");
+                input.type = "number";
+                input.min = "1";
+                input.value = "10";
+                input.style.width = "64px";
+                container.appendChild(input);
+                input.name = "marks[]"
                 input.required = true;
                 container.appendChild(document.createElement("br"));
                 container.appendChild(document.createElement("br"));

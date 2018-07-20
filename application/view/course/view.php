@@ -39,6 +39,7 @@ $student_all = $reference->getSnapshot()->getValue();
     <?php foreach($test as $unit):?>
       <p>Q. <?php echo $unit['question'];?></p>
       <p>A. <?php echo $unit['answer'];?></p>
+      <p>Marks: <?php echo $unit['marks'];?></p>
       <br>
     <?php endforeach;?>
   </div>

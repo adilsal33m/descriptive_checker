@@ -22,12 +22,12 @@ public static function check($test,$answers){
   foreach ($test as $k => $unit) {
     // $keywords_actual = self::$rake->extract($unit['answer']);
     // $keywords_test = self::$rake->extract($answers[$k]);
-    self::oneShot($unit['answer'],$answers[$k]);
+    self::oneShot($unit['answer'],$answers[$k],$unit['marks']);
   }
   return self::$marks;
 }
 
-static function oneShot($s1,$s2){
+static function oneShot($s1,$s2,$marks){
   //Rapid KeyWord Extraction
   $rake = new Rake('../vendor/rake/stoplist_smart.txt');
   $keywords = $rake->extract($s1);
@@ -134,11 +134,11 @@ $temp = [];
 foreach($intersect as $k){
   $temp[$k]= $setB[$k];
 }
-$score = array_sum($temp)*4/array_sum($setA);
-$score = $score + array_values($cos_sim_array)[0] * 4;
+$score = array_sum($temp)*0.4*$marks/array_sum($setA);
+$score = $score + array_values($cos_sim_array)[0] * 0.4*$marks;
 
 //Grammar Check
-$score = $score + (self::checkGrammar(array_values($cos_sim_array)[0])*2)/100 ;
+$score = $score + (self::checkGrammar(array_values($cos_sim_array)[0])*0.2*$marks)/100 ;
 
 //Save score
 array_push(self::$marks,number_format((float)$score, 2, '.', ''));

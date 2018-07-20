@@ -5,9 +5,6 @@ use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
 ?>
 <div class="container">
-  <h1>User Information</h1>
-  <div class="box">
-
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
       <?php
@@ -42,8 +39,9 @@ use Kreait\Firebase\ServiceAccount;
       // $database->getReference() // this is the root reference
       // ->update($updates);
       ?>
-      <p><b>Username: </b><?php echo $snapshot["name"];?></p><br>
-      <h2>Your Courses</h2>
+
+      <p><b>Username: </b><?php echo $snapshot["name"];?></p>
+    <h2>Your Courses</h2>
       <?php
         if (!empty(array_keys($snapshot["courses"]))){
           foreach($snapshot["courses"] as $k=>$v){
@@ -65,5 +63,4 @@ use Kreait\Firebase\ServiceAccount;
           echo "<br><p>No courses</p>";
         }
       ?>
-      </div>
     </div>

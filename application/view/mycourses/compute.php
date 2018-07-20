@@ -13,6 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and
   $test_id = $_POST['test_id'];
   $marks = Session::get('marks');
   $course = $_POST['course_test'];
+  $question = unserialize(base64_decode($_POST['questions']));
+  $correct = [];
+  foreach ($question as $k => $unit) {
+    $correct[$k] = $unit['answer'];
+  }
   $c_key = '"'.explode("_",$course)[1].'"';
   $t_key = '"'.explode("_",$course)[0].'"';
 }else{
@@ -47,12 +52,11 @@ $updates['teachers/'.$t_key."/courses"."/".$c_key."/test"."/".$test_id."/marks".
 $database->getReference()->update($updates);
 ?>
 <div class="container">
-  <div class="box">
     <h1>Result for Test ID: <?php echo $test_id; ?></h1>
     <?php
     foreach ($marks as $key => $mark) {
       echo "<br><p><b>Your Answer:</b><br>".$answers[$key]."</p>";
+      echo "<p><b>Correct Answer:</b><br>".$correct[$key]."</p>";
       echo "<b>Score: ".$mark."</b><br>";
     }?>
-  </div>
 </div>

@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['course_name'])){
 ?>
 
 <div class="container">
-    <div class="box">
 <h1>Create Course</h1>
         <!-- echo out the system feedback (error and success messages) -->
         <?php $this->renderFeedbackMessages(); ?>
@@ -47,5 +46,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['course_name'])){
                 <input type="submit" value="Create Course" />
             </form>
         </div>
-    </div>
 </div>

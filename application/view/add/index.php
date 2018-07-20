@@ -1,5 +1,4 @@
 <div class="container">
-    <div class="box">
 <h1>Add People</h1>
         <!-- echo out the system feedback (error and success messages) -->
         <?php $this->renderFeedbackMessages(); ?>
@@ -31,5 +30,4 @@
                 <input type="submit" value="Register" />
             </form>
         </div>
-    </div>
 </div>

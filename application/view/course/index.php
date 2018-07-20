@@ -95,7 +95,6 @@ if (!empty($added_courses)){
 }
 ?>
 <div class="container">
-  <div class="box">
     <h1>Add Courses</h1>
     <div>
       <p>Add new courses to teach<br></p>
@@ -166,5 +165,4 @@ endif; ?>
     </div>
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
-  </div>
 </div>
