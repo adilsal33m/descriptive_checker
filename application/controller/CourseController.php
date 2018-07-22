@@ -28,4 +28,8 @@ class CourseController extends Controller
     public function view(){
       $this->View->render('course/view');
     }
+
+    public function overview(){
+      $this->View->render('course/overview');
+    }
 }
