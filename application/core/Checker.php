@@ -90,12 +90,6 @@ static function oneShot($s1,$s2,$marks){
  			array_push($match_ant,$findme."$".$string);
  		}
  	}
- 	// echo "\nMatched Synonyms\n";
- 	// print_r($match_sim);
- 	//
- 	// echo "\nMatched Antonyms\n";
- 	// print_r($match_ant);
-
  	foreach($match_sim as $token){
  		$sentence = $s2;
  		$tokens = explode("$",$token);
@@ -137,9 +131,29 @@ foreach($intersect as $k){
 $score = array_sum($temp)*0.4*$marks/array_sum($setA);
 $score = $score + array_values($cos_sim_array)[0] * 0.4*$marks;
 
+//Antonym Score Subtraction
+$ant_actual = [];
+foreach ($setA as $key => $value) {
+  $r = file_get_contents(self::$thesaurusRequest.$key."/json");
+  $thes_array = json_decode($r, true);
+  foreach ($thes_array as $a){
+      if (in_array('ant',array_keys($a))){
+        $ant_actual = array_merge($ant_actual,$a['ant']);
+      }
+  }
+}
+
+$neg_score = 0;
+foreach ($ant_actual as $key => $value) {
+  if(in_array($value, array_keys($setB))){
+    $neg_score--;
+  }
+}
+
 //Grammar Check
 $score = $score + (self::checkGrammar(array_values($cos_sim_array)[0])*0.2*$marks)/100 ;
-
+$neg_score = $neg_score < $score ? $neg_score : $score ;
+$score = $score + $neg_score;
 //Save score
 array_push(self::$marks,number_format((float)$score, 2, '.', ''));
 }
