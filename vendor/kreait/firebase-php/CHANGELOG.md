@@ -1,10 +1,60 @@
 # CHANGELOG
 
+## 4.13.3 - 2018-07-25
+
+### Bugfixes
+
+* Sanitizing the project ID by default changed the output of the method `\Kreait\Firebase\ServiceAccount::getProjectId()`,
+  so a new method `\Kreait\Firebase\ServiceAccount::getSanitizedProjectId()` is now used instead.
+
+## 4.13.2 - 2018-07-25
+
+### Bugfixes
+
+* Project IDs that cannot be used for database URIs directly are sanitized when configuring a Service Account ([#228](https://github.com/kreait/firebase-php/issues/228))
+
+### Non-breaking changes
+
+* When publishing an outdated Remote Config, Firebase previously returned an "OPERATION ABORTED" error,
+  resulting in a `Kreait\Firebase\Exception\RemoteConfig\OperationAborted` exception. Firebase has
+  changed the error to "VERSION MISMATCH", which now results in a `Kreait\Firebase\Exception\RemoteConfig\VersionMismatch` exception.
+  The new exception inherits from the old exception, so no code changes are required.
+* A `Kreait\Firebase\Exception\RemoteConfigException` now includes the full error as returned by the Firebase API.
+
+## 4.13.1 - 2018-07-17
+
+### Bugfixes
+
+* Fixed generating a random child key with `$reference->push()->getKey()` ([#222](https://github.com/kreait/firebase-php/issues/222))
+* Fixed deleting a reference by setting it to `null` ([#222](https://github.com/kreait/firebase-php/issues/222))
+
+## 4.13.0 - 2018-07-16
+
+### Features
+
+* Added support for setting a continueUrl to email actions ([#220](https://github.com/kreait/firebase-php/pull/220), thanks to [Wade Womersley](https://github.com/wadewomersley))
+
+## 4.12.1 - 2018-07-08
+
+### Bugfixes
+
+* Fixed the import of existing Remote Config conditions ([#218](https://github.com/kreait/firebase-php/issues/218))
+
+### Changes
+
+* A more descriptive exception is thrown when adding a parameter to a Remote Config template that refers 
+  to a condition that doesn't exist.
+
+## 4.12.0 - 2018-06-28
+
+* Added support for validating FCM messages without actually sending them ([#216](https://github.com/kreait/firebase-php/issues/216)) 
+  ([Documentation](https://firebase-php.readthedocs.io/en/latest/cloud-messaging.html#validating-messages))
+
 ## 4.11.0 - 2018-06-26
 
 ### New features
 
-* Enable custom configuration and middlewares for the underlying HTTP client
+* Enabled custom configuration and middlewares for the underlying HTTP client
   ([Documentation](https://firebase-php.readthedocs.io/en/latest/setup.html#http-client-options-and-middlewares))
 
 ### Bugfixes
@@ -15,13 +65,13 @@
 
 ### Bugfixes
 
-* Add support for non-alphabetical chars in keys in Database snapshots ([#212](https://github.com/kreait/firebase-php/issues/212))
+* Added support for non-alphabetical chars in keys in Database snapshots ([#212](https://github.com/kreait/firebase-php/issues/212))
 
 ## 4.10.0 - 2018-06-15
 
 ### New features
 
-* Allow the caching of Google's public keys used for ID Token verification 
+* Enabled the caching of Google's public keys used for ID Token verification 
   ([#210](https://github.com/kreait/firebase-php/issues/210)) 
   ([Documentation](https://firebase-php.readthedocs.io/en/latest/authentication.html#caching-google-s-public-keys))
 

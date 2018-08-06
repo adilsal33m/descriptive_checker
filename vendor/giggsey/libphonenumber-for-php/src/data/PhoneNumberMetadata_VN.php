@@ -14,7 +14,7 @@
 return array (
   'generalDesc' => 
   array (
-    'NationalNumberPattern' => '1\\d{6,9}|2\\d{9}|6\\d{6,7}|7\\d{6}|8\\d{6,8}|9\\d{8}',
+    'NationalNumberPattern' => '[12]\\d{9}|(?:[19]\\d|8[0-35-9])\\d{7}|1\\d{7}|69\\d{5,6}|(?:[18]\\d\\d|799)\\d{4}',
     'PossibleLength' => 
     array (
       0 => 7,
@@ -28,7 +28,7 @@ return array (
   ),
   'fixedLine' => 
   array (
-    'NationalNumberPattern' => '(?:2(?:0[3-9]|1[0-689]|2[0-25-9]|3[2-9]|4[2-8]|5[124-9]|6[0-39]|7[0-7]|8[2-7]|9[0-4679])\\d|866)\\d{6}',
+    'NationalNumberPattern' => '2(?:0[3-9]|1[0-689]|2[0-25-9]|3[2-9]|4[2-8]|5[124-9]|6[0-39]|7[0-7]|8[2-7]|9[0-4679])\\d{7}',
     'ExampleNumber' => '2101234567',
     'PossibleLength' => 
     array (
@@ -41,7 +41,7 @@ return array (
   ),
   'mobile' => 
   array (
-    'NationalNumberPattern' => '(?:9(?:[0-8]\\d|9[013-9])|1(?:2\\d|6[2-9]|8[68]|99)\\d|8(?:6[689]|8\\d|9[89]))\\d{6}',
+    'NationalNumberPattern' => '(?:1(?:2\\d|6[2-9]|8[68]|99)\\d|8(?:6[689]|8\\d|9[89])|9(?:[0-8]\\d|9[013-9]))\\d{6}',
     'ExampleNumber' => '912345678',
     'PossibleLength' => 
     array (
@@ -148,7 +148,6 @@ return array (
   'noInternationalDialling' => 
   array (
     'NationalNumberPattern' => '[17]99\\d{4}|69\\d{5,6}',
-    'ExampleNumber' => '1992000',
     'PossibleLength' => 
     array (
       0 => 7,

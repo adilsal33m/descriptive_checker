@@ -21,10 +21,13 @@ class JSON
      *
      * @return string
      */
-    public static function encode($value, $options = 0, $depth = 512): string
+    public static function encode($value, $options = null, $depth = null): string
     {
+        $options = $options ?? 0;
+        $depth = $depth ?? 512;
+
         $json = \json_encode($value, $options, $depth);
-        if (JSON_ERROR_NONE !== json_last_error()) {
+        if (json_last_error() !== JSON_ERROR_NONE) {
             throw new InvalidArgumentException(
                 'json_encode error: '.json_last_error_msg());
         }
@@ -48,10 +51,10 @@ class JSON
      *
      * @return mixed
      */
-    public static function decode($json, $assoc = false, $depth = 512, $options = 0)
+    public static function decode($json, $assoc = null, $depth = null, $options = null)
     {
-        $data = \json_decode($json, $assoc, $depth, $options);
-        if (JSON_ERROR_NONE !== json_last_error()) {
+        $data = \json_decode($json, $assoc ?? false, $depth ?? 512, $options ?? 0);
+        if (json_last_error() !== JSON_ERROR_NONE) {
             throw new InvalidArgumentException(
                 'json_decode error: '.json_last_error_msg());
         }

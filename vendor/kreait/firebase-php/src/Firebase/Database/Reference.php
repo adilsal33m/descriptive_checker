@@ -65,7 +65,7 @@ class Reference
     {
         $key = basename($this->getPath());
 
-        return '' !== $key ? $key : null;
+        return $key !== '' ? $key : null;
     }
 
     /**
@@ -91,11 +91,10 @@ class Reference
     {
         $parentPath = \dirname($this->getPath());
 
-        if ('.' === $parentPath) {
+        if ($parentPath === '.') {
             throw new OutOfRangeException('Cannot get parent of root reference');
         }
 
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new self($this->uri->withPath($parentPath), $this->apiClient, $this->validator);
     }
 
@@ -108,7 +107,6 @@ class Reference
      */
     public function getRoot(): self
     {
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new self($this->uri->withPath('/'), $this->apiClient, $this->validator);
     }
 
@@ -148,7 +146,6 @@ class Reference
      */
     public function orderByChild(string $path): Query
     {
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->query()->orderByChild($path);
     }
 
@@ -161,7 +158,6 @@ class Reference
      */
     public function orderByKey(): Query
     {
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->query()->orderByKey();
     }
 
@@ -174,7 +170,6 @@ class Reference
      */
     public function orderByValue(): Query
     {
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return $this->query()->orderByValue();
     }
 
@@ -270,7 +265,6 @@ class Reference
      */
     public function getChildKeys(): array
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $snapshot = $this->shallow()->getSnapshot();
 
         if (\is_array($value = $snapshot->getValue())) {
@@ -308,7 +302,11 @@ class Reference
      */
     public function set($value): self
     {
-        $this->apiClient->set($this->uri, $value);
+        if ($value === null) {
+            $this->apiClient->remove($this->uri);
+        } else {
+            $this->apiClient->set($this->uri, $value);
+        }
 
         return $this;
     }
@@ -350,10 +348,11 @@ class Reference
      */
     public function push($value = null): self
     {
+        $value = $value ?? [];
+
         $newKey = $this->apiClient->push($this->uri, $value);
         $newPath = sprintf('%s/%s', $this->uri->getPath(), $newKey);
 
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         return new self($this->uri->withPath($newPath), $this->apiClient, $this->validator);
     }
 

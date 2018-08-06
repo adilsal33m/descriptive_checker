@@ -111,6 +111,7 @@ class Factory
      */
     public function withVerifierCache($cache): self
     {
+        /* @noinspection ClassConstantCanBeUsedInspection */
         if (!is_a($cache, $expected = 'Psr\SimpleCache\CacheInterface')) {
             throw new InvalidArgumentException('The verififier cache must be an instance of '.$expected);
         }
@@ -137,11 +138,11 @@ class Factory
         return $factory;
     }
 
-    public function asUser(string $uid, array $claims = []): self
+    public function asUser(string $uid, array $claims = null): self
     {
         $factory = clone $this;
         $factory->uid = $uid;
-        $factory->claims = $claims;
+        $factory->claims = $claims ?? [];
 
         return $factory;
     }
@@ -183,12 +184,12 @@ class Factory
 
     protected function getDatabaseUriFromServiceAccount(ServiceAccount $serviceAccount): UriInterface
     {
-        return uri_for(sprintf(self::$databaseUriPattern, $serviceAccount->getProjectId()));
+        return uri_for(sprintf(self::$databaseUriPattern, $serviceAccount->getSanitizedProjectId()));
     }
 
     protected function getStorageBucketNameFromServiceAccount(ServiceAccount $serviceAccount): string
     {
-        return sprintf(self::$storageBucketNamePattern, $serviceAccount->getProjectId());
+        return sprintf(self::$storageBucketNamePattern, $serviceAccount->getSanitizedProjectId());
     }
 
     protected function createAuth(): Auth
@@ -204,7 +205,7 @@ class Factory
         return new Auth(
             new Auth\ApiClient($http),
             new Generator($serviceAccount->getClientEmail(), $serviceAccount->getPrivateKey()),
-            new Verifier($serviceAccount->getProjectId(), $keyStore)
+            new Verifier($serviceAccount->getSanitizedProjectId(), $keyStore)
         );
     }
 
@@ -235,7 +236,7 @@ class Factory
     protected function createRemoteConfig(): RemoteConfig
     {
         $http = $this->createApiClient($this->getServiceAccount(), [
-            'base_uri' => 'https://firebaseremoteconfig.googleapis.com/v1/projects/'.$this->getServiceAccount()->getProjectId().'/remoteConfig',
+            'base_uri' => 'https://firebaseremoteconfig.googleapis.com/v1/projects/'.$this->getServiceAccount()->getSanitizedProjectId().'/remoteConfig',
         ]);
 
         return new RemoteConfig(new RemoteConfig\ApiClient($http));
@@ -244,7 +245,7 @@ class Factory
     protected function createMessaging(): Messaging
     {
         $serviceAccount = $this->getServiceAccount();
-        $projectId = $serviceAccount->getProjectId();
+        $projectId = $serviceAccount->getSanitizedProjectId();
 
         $messagingApiClient = new Messaging\ApiClient(
             $this->createApiClient($this->getServiceAccount(), [
@@ -264,7 +265,7 @@ class Factory
         return new Messaging($messagingApiClient, new MessageFactory(), $topicManagementApiClient);
     }
 
-    protected function createApiClient(ServiceAccount $serviceAccount, array $config = []): Client
+    protected function createApiClient(ServiceAccount $serviceAccount, array $config = null): Client
     {
         $googleAuthTokenMiddleware = $this->createGoogleAuthTokenMiddleware($serviceAccount);
 
@@ -274,15 +275,19 @@ class Factory
         }
         $stack->push($googleAuthTokenMiddleware, 'auth_service_account');
 
-        $config = array_merge($this->httpClientConfig, $config, [
-            'handler' => $stack,
-            'auth' => 'google_auth',
-        ]);
+        $config = array_merge(
+            $this->httpClientConfig,
+            $config ?? [],
+            [
+                'handler' => $stack,
+                'auth' => 'google_auth',
+            ]
+        );
 
         return new Client($config);
     }
 
-    protected function createGoogleAuthTokenMiddleware(ServiceAccount $serviceAccount, array $additionalScopes = []): AuthTokenMiddleware
+    protected function createGoogleAuthTokenMiddleware(ServiceAccount $serviceAccount, array $additionalScopes = null): AuthTokenMiddleware
     {
         $scopes = [
             'https://www.googleapis.com/auth/cloud-platform',
@@ -290,7 +295,7 @@ class Factory
             'https://www.googleapis.com/auth/firebase.messaging',
             'https://www.googleapis.com/auth/firebase.remoteconfig',
             'https://www.googleapis.com/auth/userinfo.email',
-        ] + $additionalScopes;
+        ] + ($additionalScopes ?? []);
 
         $credentials = [
             'client_email' => $serviceAccount->getClientEmail(),
@@ -306,7 +311,7 @@ class Factory
         $builder = $this->getGoogleCloudServiceBuilder();
 
         $storageClient = $builder->storage([
-            'projectId' => $this->getServiceAccount()->getProjectId(),
+            'projectId' => $this->getServiceAccount()->getSanitizedProjectId(),
         ]);
 
         return new Storage($storageClient, $this->getStorageBucketName());

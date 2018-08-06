@@ -53,10 +53,10 @@ class Database
      *
      * @return Reference
      */
-    public function getReference(string $path = ''): Reference
+    public function getReference(string $path = null): Reference
     {
         try {
-            return new Reference($this->uri->withPath($path), $this->client);
+            return new Reference($this->uri->withPath($path ?? ''), $this->client);
         } catch (\InvalidArgumentException $e) {
             throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
@@ -102,7 +102,6 @@ class Database
      */
     public function getRules(): RuleSet
     {
-        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $rules = $this->client->get($this->uri->withPath('.settings/rules'));
 
         return RuleSet::fromArray($rules);
@@ -117,7 +116,6 @@ class Database
      */
     public function updateRules(RuleSet $ruleSet)
     {
-        /* @noinspection ExceptionsAnnotatingAndHandlingInspection */
         $this->client->set($this->uri->withPath('.settings/rules'), $ruleSet);
     }
 }

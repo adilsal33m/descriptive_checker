@@ -52,11 +52,15 @@ class ApiClient
         $this->request('PATCH', $uri, ['json' => $values]);
     }
 
-    private function request(string $method, $uri, array $options = []): ResponseInterface
+    private function request(string $method, $uri, array $options = null): ResponseInterface
     {
+        $options = $options ?? [];
+
         $request = new Request($method, $uri);
 
         try {
+            // GuzzleException is a marker interface that we cannot catch (at least not in <7.1)
+            /** @noinspection PhpUnhandledExceptionInspection */
             return $this->httpClient->send($request, $options);
         } catch (RequestException $e) {
             throw ApiException::wrapRequestException($e);

@@ -157,17 +157,17 @@
     },
     {
         "name": "giggsey/libphonenumber-for-php",
-        "version": "8.9.9",
-        "version_normalized": "8.9.9.0",
+        "version": "8.9.11",
+        "version_normalized": "8.9.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-            "reference": "79a3ee64277b3c8f71dc379c7325155b945058d7"
+            "reference": "2a6b6661f42644941e4c8e895518f27c99587a68"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/79a3ee64277b3c8f71dc379c7325155b945058d7",
-            "reference": "79a3ee64277b3c8f71dc379c7325155b945058d7",
+            "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/2a6b6661f42644941e4c8e895518f27c99587a68",
+            "reference": "2a6b6661f42644941e4c8e895518f27c99587a68",
             "shasum": ""
         },
         "require": {
@@ -180,11 +180,11 @@
             "pear/pear_exception": "^1.0",
             "pear/versioncontrol_git": "^0.5",
             "phing/phing": "^2.7",
+            "php-coveralls/php-coveralls": "^1.0|^2.0",
             "phpunit/phpunit": "^4.8|^5.0",
-            "satooshi/php-coveralls": "^1.0|^2.0",
             "symfony/console": "^2.8|^3.0"
         },
-        "time": "2018-06-27T13:04:37+00:00",
+        "time": "2018-07-26T10:50:48+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -278,17 +278,17 @@
     },
     {
         "name": "google/auth",
-        "version": "v1.3.0",
-        "version_normalized": "1.3.0.0",
+        "version": "v1.3.2",
+        "version_normalized": "1.3.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/google/google-auth-library-php.git",
-            "reference": "8f7c96146b2c62d3f4c6bbc4b5bb8a8e396b0b71"
+            "reference": "436007a77fd2037f933d3a5c8e4c7e0c9b88a7b0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/8f7c96146b2c62d3f4c6bbc4b5bb8a8e396b0b71",
-            "reference": "8f7c96146b2c62d3f4c6bbc4b5bb8a8e396b0b71",
+            "url": "https://api.github.com/repos/google/google-auth-library-php/zipball/436007a77fd2037f933d3a5c8e4c7e0c9b88a7b0",
+            "reference": "436007a77fd2037f933d3a5c8e4c7e0c9b88a7b0",
             "shasum": ""
         },
         "require": {
@@ -305,7 +305,7 @@
             "phpunit/phpunit": "^4.8.36|^5.7",
             "sebastian/comparator": ">=1.2.3"
         },
-        "time": "2018-04-06T19:26:30+00:00",
+        "time": "2018-07-23T21:44:38+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -327,17 +327,17 @@
     },
     {
         "name": "google/cloud-core",
-        "version": "v1.20.5",
-        "version_normalized": "1.20.5.0",
+        "version": "v1.21.1",
+        "version_normalized": "1.21.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/GoogleCloudPlatform/google-cloud-php-core.git",
-            "reference": "d0fd6f49c92737746de23ab15e226922dba35110"
+            "reference": "4dee63d2baf793d3798cc7e420004102a49b0a71"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php-core/zipball/d0fd6f49c92737746de23ab15e226922dba35110",
-            "reference": "d0fd6f49c92737746de23ab15e226922dba35110",
+            "url": "https://api.github.com/repos/GoogleCloudPlatform/google-cloud-php-core/zipball/4dee63d2baf793d3798cc7e420004102a49b0a71",
+            "reference": "4dee63d2baf793d3798cc7e420004102a49b0a71",
             "shasum": ""
         },
         "require": {
@@ -351,7 +351,7 @@
         },
         "require-dev": {
             "erusev/parsedown": "^1.6",
-            "google/gax": "^0.33",
+            "google/gax": "^0.36",
             "opis/closure": "^3",
             "phpdocumentor/reflection": "^3.0",
             "phpunit/phpunit": "^4.8|^5.0",
@@ -361,7 +361,7 @@
             "opis/closure": "May be used to serialize closures to process jobs in the batch daemon. Please require version ^3.",
             "symfony/lock": "Required for the Spanner cached based session pool. Please require the following commit: 3.3.x-dev#1ba6ac9"
         },
-        "time": "2018-06-12T16:51:43+00:00",
+        "time": "2018-07-19T17:51:07+00:00",
         "bin": [
             "bin/google-cloud-batch"
         ],
@@ -674,17 +674,17 @@
     },
     {
         "name": "kreait/firebase-php",
-        "version": "4.11.0",
-        "version_normalized": "4.11.0.0",
+        "version": "4.13.3",
+        "version_normalized": "4.13.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/kreait/firebase-php.git",
-            "reference": "2a06069c336f2ea0a87557cc5042052fb7d1631d"
+            "reference": "9295bf1ccfe848a3dffe6d51fde4534e34df1659"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/kreait/firebase-php/zipball/2a06069c336f2ea0a87557cc5042052fb7d1631d",
-            "reference": "2a06069c336f2ea0a87557cc5042052fb7d1631d",
+            "url": "https://api.github.com/repos/kreait/firebase-php/zipball/9295bf1ccfe848a3dffe6d51fde4534e34df1659",
+            "reference": "9295bf1ccfe848a3dffe6d51fde4534e34df1659",
             "shasum": ""
         },
         "require": {
@@ -704,7 +704,7 @@
             "phpstan/phpstan-phpunit": "^0.9.2",
             "phpunit/phpunit": "^6.0|^7.0"
         },
-        "time": "2018-06-26T14:59:54+00:00",
+        "time": "2018-07-25T21:34:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -797,17 +797,17 @@
     },
     {
         "name": "lcobucci/jwt",
-        "version": "3.2.2",
-        "version_normalized": "3.2.2.0",
+        "version": "3.2.3",
+        "version_normalized": "3.2.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/lcobucci/jwt.git",
-            "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c"
+            "reference": "01da822b3c2982ca9f2a1234f802a3ec001527ec"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/0b5930be73582369e10c4d4bb7a12bac927a203c",
-            "reference": "0b5930be73582369e10c4d4bb7a12bac927a203c",
+            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/01da822b3c2982ca9f2a1234f802a3ec001527ec",
+            "reference": "01da822b3c2982ca9f2a1234f802a3ec001527ec",
             "shasum": ""
         },
         "require": {
@@ -825,7 +825,7 @@
         "suggest": {
             "mdanter/ecc": "Required to use Elliptic Curves based algorithms."
         },
-        "time": "2017-09-01T08:23:26+00:00",
+        "time": "2018-07-29T14:38:43+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2710,23 +2710,23 @@
     },
     {
         "name": "symfony/finder",
-        "version": "v4.1.1",
-        "version_normalized": "4.1.1.0",
+        "version": "v4.1.3",
+        "version_normalized": "4.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/finder.git",
-            "reference": "84714b8417d19e4ba02ea78a41a975b3efaafddb"
+            "reference": "e162f1df3102d0b7472805a5a9d5db9fcf0a8068"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/finder/zipball/84714b8417d19e4ba02ea78a41a975b3efaafddb",
-            "reference": "84714b8417d19e4ba02ea78a41a975b3efaafddb",
+            "url": "https://api.github.com/repos/symfony/finder/zipball/e162f1df3102d0b7472805a5a9d5db9fcf0a8068",
+            "reference": "e162f1df3102d0b7472805a5a9d5db9fcf0a8068",
             "shasum": ""
         },
         "require": {
             "php": "^7.1.3"
         },
-        "time": "2018-06-19T21:38:16+00:00",
+        "time": "2018-07-26T11:24:31+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2818,17 +2818,17 @@
     },
     {
         "name": "symfony/yaml",
-        "version": "v4.1.1",
-        "version_normalized": "4.1.1.0",
+        "version": "v4.1.3",
+        "version_normalized": "4.1.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/yaml.git",
-            "reference": "80e4bfa9685fc4a09acc4a857ec16974a9cd944e"
+            "reference": "46bc69aa91fc4ab78a96ce67873a6b0c148fd48c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/yaml/zipball/80e4bfa9685fc4a09acc4a857ec16974a9cd944e",
-            "reference": "80e4bfa9685fc4a09acc4a857ec16974a9cd944e",
+            "url": "https://api.github.com/repos/symfony/yaml/zipball/46bc69aa91fc4ab78a96ce67873a6b0c148fd48c",
+            "reference": "46bc69aa91fc4ab78a96ce67873a6b0c148fd48c",
             "shasum": ""
         },
         "require": {
@@ -2844,7 +2844,7 @@
         "suggest": {
             "symfony/console": "For validating YAML files using the lint command"
         },
-        "time": "2018-05-30T07:26:09+00:00",
+        "time": "2018-07-26T11:24:31+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
