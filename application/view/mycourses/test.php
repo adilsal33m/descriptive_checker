@@ -38,7 +38,7 @@ $test = $reference->getSnapshot()->getValue();
     <form action="<?php echo Config::get('URL'); ?>mycourses/compute" method="post">
       <?php foreach($test as $unit):?>
         <p>Q. <?php echo $unit['question'];?></p>
-        <input type="text" name="answers[]" required autocomplete="off" />
+        <input type="text" style="width:300px;" name="answers[]" required autocomplete="off" />
       <?php endforeach;?>
       <br><br>
       <input type="hidden" name="course_test" value= <?php echo $course; ?> />

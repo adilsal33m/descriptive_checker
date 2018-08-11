@@ -120,6 +120,7 @@ function addFields(){
                 var input = document.createElement("input");
                 input.type = "text";
                 input.name = "question[]";
+                input.style.width = "300px";
                 input.required = true;
                 container.appendChild(input);
                 container.appendChild(document.createElement("br"));
@@ -128,6 +129,7 @@ function addFields(){
                 input.type = "text";
                 container.appendChild(input);
                 input.name = "answer[]"
+                input.style.width = "300px";
                 input.required = true;
                 container.appendChild(document.createTextNode("Marks"));
                 var input = document.createElement("input");

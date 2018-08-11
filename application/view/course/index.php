@@ -57,25 +57,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['course']))
   //Add student to course
   if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['student_id']))
   {
-    $reference = $database->getReference('students/"'.$_POST['student_id'].'"');
+    foreach (explode(",",$_POST['student_id']) as $student_enroll) {
+    $reference = $database->getReference('students/"'.$student_enroll.'"');
     $temp = $reference->getSnapshot()->getValue();
     if(!empty($temp)){
-      $reference = $database->getReference('students/"'.$_POST['student_id'].'"/courses');
+      $reference = $database->getReference('students/"'.$student_enroll.'"/courses');
       $temp = $reference->getSnapshot()->getValue();
       if(!empty($temp) && in_array($key."_".$_POST['course_add'], array_keys($temp))){
-        echo "<p class = 'feedback error'> Student already added in ".$all_courses['"'.$_POST['course_add'].'"'].". </p>";
+        echo "<p class = 'feedback error'> Student ".$student_enroll." already added in ".$all_courses['"'.$_POST['course_add'].'"'].". </p>";
       }else{
         $updates = [
-          'students/"'.$_POST['student_id'].'"/courses/'.$key."_".$_POST['course_add'] => ["enrolled"=>true],
-          'teachers/"'.$key.'"/courses/"'.$_POST['course_add'].'"/students/'.$_POST['student_id'] => $_POST['student_id']
+          'students/"'.$student_enroll.'"/courses/'.$key."_".$_POST['course_add'] => ["enrolled"=>true],
+          'teachers/"'.$key.'"/courses/"'.$_POST['course_add'].'"/students/'.$student_enroll => $student_enroll
         ];
         $database->getReference() // this is the root reference
         ->update($updates);
-        echo "<p class = 'feedback success'>Student added in ".$all_courses['"'.$_POST['course_add'].'"']." succesfully. </p>";
+        echo "<p class = 'feedback success'>Student ".$student_enroll." added in ".$all_courses['"'.$_POST['course_add'].'"']." succesfully. </p>";
       }
     }else{
-      echo "<p class = 'feedback error'> No such student. </p>";
+      echo "<p class = 'feedback error'> No such student.".$student_enroll." </p>";
     }
+  }
   }
 
 

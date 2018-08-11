@@ -21,7 +21,7 @@ if (PHP_SAPI != 'cli') {
 
 $text = "This is a simple example of a Tokenizer.";
 $s1 = "Sun is giant gas filled star that is very bright.";
-$s2 = "Sun is giant gas filled star that is luminous.";
+$s2 = "sun iz a star";
 $tok = new WhitespaceTokenizer();
 $J = new JaccardIndex();
 $cos = new CosineSimilarity();
