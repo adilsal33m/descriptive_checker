@@ -20,8 +20,8 @@ if (PHP_SAPI != 'cli') {
 }
 
 $text = "This is a simple example of a Tokenizer.";
-$s1 = "Sun is giant gas filled star that is very bright.";
-$s2 = "Sun is giant gas filled star that is very bright.";
+$s1 = "This is false";
+$s2 = "This is true";
 $tok = new WhitespaceTokenizer();
 $J = new JaccardIndex();
 $cos = new CosineSimilarity();
@@ -241,6 +241,29 @@ $ant = [];
    echo "<p><b>Score: <b>".array_values($cos_sim_array)[0]." out of 10.</p>";
    ?>
 
+	 <h3>Antonym Score Subtraction</h3>
+<?php
+	 //Antonym Score Subtraction
+	 $ant_actual = [];
+	 foreach ($setA as $key => $value) {
+		 $r = file_get_contents($thesaurusRequest.$value."/json");
+		 $thes_array = json_decode($r, true);
+		 foreach ($thes_array as $a){
+				 if (in_array('ant',array_keys($a))){
+					 $ant_actual = array_merge($ant_actual,$a['ant']);
+				 }
+		 }
+	 }
+var_dump($ant_actual);
+	 $neg_score = 0;
+	 foreach ($ant_actual as $key => $value) {
+		 if(in_array($value, array_keys($setB))){
+			 $neg_score--;
+		 }
+	 }
+	 echo "<p><b>Negative Score: <b>".$neg_score."</p>";
+	 ?>
+
 	 <h3>Cosine Similarity Score</h3>
 	 <?php
 	 //Cosine Similarity Score
@@ -254,7 +277,7 @@ $ant = [];
 	 }
 	 arsort($cos_sim_array);
 	 echo "<p><b>Selected Sentence</b>:<br>".$sentences_sim[key($cos_sim_array)]."<br>";
-   echo "<p><b>Score: <b>".(((int)array_values($cos_sim_array)[0])*10)." out of 10.</p>";
+   echo "<p><b>Score: <b>".(((float)array_values($cos_sim_array)[0])*10)." out of 10.</p>";
 	  ?>
 
    <h3>Grammar Check</h3>
