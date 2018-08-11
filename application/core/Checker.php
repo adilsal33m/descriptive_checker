@@ -115,13 +115,14 @@ static function oneShot($s1,$s2,$marks){
 $cos = new CosineSimilarity();
 $cos_sim_array = [];
 $tok = new WhitespaceAndPunctuationTokenizer();
-$setA = $rake->extract($s1);
+$setA = $tok->tokenize($s1);
 foreach($sentences_sim as $k => $sent){
- $setB = $rake->extract($sent);
+ $setB = $tok->tokenize($sent);
  $cos_sim_array[$k] = $cos->similarity($setB,$setA);
 }
 arsort($cos_sim_array);
 //Rake Score
+$setA = $rake->extract($s1);
 $setB = $rake->extract($sentences_sim[key($cos_sim_array)]);
 $intersect = array_intersect(array_keys($setB),array_keys($setA));
 $temp = [];
@@ -151,7 +152,12 @@ foreach ($ant_actual as $key => $value) {
 }
 
 //Grammar Check
-$score = $score + (self::checkGrammar(array_values($cos_sim_array)[0])*0.2*$marks)/100 ;
+$g_score = self::checkGrammar(array_values($cos_sim_array)[0]);
+if($g_score == NULL){
+  $score = $score + 0.25 * $score;
+}else{
+  $score = $score + $g_score*0.2*$marks/100;
+}
 $neg_score = $neg_score < $score ? $neg_score : $score ;
 $score = $score + $neg_score;
 //Save score
@@ -172,6 +178,7 @@ static function checkGrammar($text){
  );
  $context  = stream_context_create($options);
  $result = file_get_contents($url, false, $context);
+ var_dump(json_decode( $result, true )['score']);
  return json_decode( $result, true )['score'];
 }
 

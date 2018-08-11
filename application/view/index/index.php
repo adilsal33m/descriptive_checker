@@ -21,7 +21,7 @@ if (PHP_SAPI != 'cli') {
 
 $text = "This is a simple example of a Tokenizer.";
 $s1 = "Sun is giant gas filled star that is very bright.";
-$s2 = "sun iz a star";
+$s2 = "Sun is giant gas filled star that is very bright.";
 $tok = new WhitespaceTokenizer();
 $J = new JaccardIndex();
 $cos = new CosineSimilarity();
@@ -215,14 +215,13 @@ $ant = [];
 	print_r($sentences_sim);
 	print_r($sentences_ant);
    ?>
+
    <h3>Best Sentence using Rake Score</h3>
    <?php
    $cos_sim_array = [];
    $tok = new WhitespaceAndPunctuationTokenizer();
-	//print_r($tok->tokenize($text));
    foreach($sentences_sim as $k => $sent){
 		$setB = $rake->extract($sent);
-		//$cos_sim_array[$k] = $cos->similarity($setB,$keywords_actual);
 		$temp = [];
 		foreach($setB as $k1 => $v1){
 			foreach(explode(" ",$k1) as $k2){
@@ -239,8 +238,24 @@ $ant = [];
 	 }
    arsort($cos_sim_array);
 	 echo "<p><b>Selected Sentence</b>:<br>".$sentences_sim[key($cos_sim_array)]."<br>";
-   echo "<p><b>Score: <b>".array_values($cos_sim_array)[0]."</p>";
+   echo "<p><b>Score: <b>".array_values($cos_sim_array)[0]." out of 10.</p>";
    ?>
+
+	 <h3>Cosine Similarity Score</h3>
+	 <?php
+	 //Cosine Similarity Score
+	 $cos = new CosineSimilarity();
+	 $cos_sim_array = [];
+	 $tok = new WhitespaceAndPunctuationTokenizer();
+	 $setA = $tok->tokenize($s1);
+	 foreach($sentences_sim as $k => $sent){
+	  $setB = $tok->tokenize($sent);
+	  $cos_sim_array[$k] = $cos->similarity($setB,$setA);
+	 }
+	 arsort($cos_sim_array);
+	 echo "<p><b>Selected Sentence</b>:<br>".$sentences_sim[key($cos_sim_array)]."<br>";
+   echo "<p><b>Score: <b>".(((int)array_values($cos_sim_array)[0])*10)." out of 10.</p>";
+	  ?>
 
    <h3>Grammar Check</h3>
    <?php
