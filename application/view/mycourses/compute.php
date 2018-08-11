@@ -15,8 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" and
   $course = $_POST['course_test'];
   $question = unserialize(base64_decode($_POST['questions']));
   $correct = [];
+  $actual_marks = [];
   foreach ($question as $k => $unit) {
     $correct[$k] = $unit['answer'];
+    $actual_marks = $unit['marks'];
   }
   $c_key = '"'.explode("_",$course)[1].'"';
   $t_key = '"'.explode("_",$course)[0].'"';
@@ -57,6 +59,6 @@ $database->getReference()->update($updates);
     foreach ($marks as $key => $mark) {
       echo "<br><p><b>Your Answer:</b><br>".$answers[$key]."</p>";
       echo "<p><b>Correct Answer:</b><br>".$correct[$key]."</p>";
-      echo "<b>Score: ".$mark."</b><br>";
+      echo "<b>Score: ".$mark."</b> out of ".$actual_marks[$key]."<br>";
     }?>
 </div>
